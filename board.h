@@ -4,6 +4,7 @@
 
 #include "int64.h"
 #include "piece.h"
+#include "step.h"
 #include <string>
 #include <vector>
 
@@ -20,6 +21,29 @@ class Board
     void newGame();
 
     void doPlacementString(const string& pStr);
+    
+    void doCombo(const StepCombo& combo);
+    void undoCombo(const StepCombo& combo);
+
+    void doStep(const Step& step)
+    {
+        // Get the aggregrate bitboard. Note that for captures, this will
+        // contain only 1 non-zero bit.
+        Int64 agg = Int64FromIndex(step.getFrom()) |
+                    Int64FromIndex(step.getTo());
+
+        // xor out the aggregrate from the piece's bitboard. If this is a move,
+        // then this will zero out the previous square and 1 the new square. If
+        // this is a capture, then the previous square is just zeroed out.
+        const unsigned char piece = step.getPiece();
+        pieces[colorOfPiece(piece)][typeOfPiece(piece)] ^= agg; 
+    }
+
+    void undoStep(const Step& step)
+    {
+        // The same procedure doing the step again actually undoes the step
+        doStep(step); 
+    }
 
     //variables///////////////////////////////////////////////////////////////
 

@@ -17,7 +17,7 @@ class Step
     //////////////////////////////////////////////////////////////////////////
     //returns the piece
     //////////////////////////////////////////////////////////////////////////
-    unsigned char getPiece()
+    unsigned char getPiece() const
     {
         return data & 0XF; //first 4 bits
     }
@@ -26,7 +26,7 @@ class Step
     //////////////////////////////////////////////////////////////////////////
     //returns the square piece is moving from
     //////////////////////////////////////////////////////////////////////////
-    unsigned char getFrom()
+    unsigned char getFrom() const
     {
         return (data >> 4) & 0x3F; //the 6 bits after the first 4
     }
@@ -35,7 +35,7 @@ class Step
     //returns the destination square. Note that this is the same as the from
     //square if this is a capture
     //////////////////////////////////////////////////////////////////////////
-    unsigned char getTo()
+    unsigned char getTo() const
     {
         return (data >> 10) & 0x3F; //the last 6 bits
     }
