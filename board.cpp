@@ -72,6 +72,33 @@ void Board :: doPlacementString(const string& pStr)
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// Takes an arbitrary move string and plays the results on the board as the
+// current player's turn.
+//////////////////////////////////////////////////////////////////////////////
+void Board :: doMoveString(const string& mStr)
+{
+    // Check if it is the setup phase. If so, then a placement string
+    // will have been placed    
+    if (isSetup)
+    {
+        doPlacementString(mStr);
+        changeTurn();
+
+        if (sideToMove == GOLD) // Back to gold after init phase
+        {
+            isSetup = false; 
+        } 
+    }
+    else
+    {
+        StepCombo combo;
+        combo.fromString(mStr);
+        doCombo(combo);
+        changeTurn(); 
+    }
+} 
+
 /////////////////////////////////////////////////////////////////////////////
 // Performs a combo of steps. DOES increase the steps taken.
 /////////////////////////////////////////////////////////////////////////////

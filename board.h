@@ -21,6 +21,7 @@ class Board
     void newGame();
 
     void doPlacementString(const string& pStr);
+    void doMoveString(const string& mStr);
     
     void doCombo(const StepCombo& combo);
     void undoCombo(const StepCombo& combo);
@@ -43,6 +44,12 @@ class Board
     {
         // The same procedure doing the step again actually undoes the step
         doStep(step); 
+    }
+
+    void changeTurn()
+    {
+        sideToMove = oppColorOf(sideToMove);
+        stepsLeft = 4;
     }
 
     //variables///////////////////////////////////////////////////////////////
