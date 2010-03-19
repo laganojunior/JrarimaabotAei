@@ -1,6 +1,14 @@
 #include "board.h"
 #include "piece.h"
 #include "int64.h"
+#include "stringsplit.h"
+#include "square.h"
+
+#include <vector>
+#include <string>
+#include <sstream>
+
+using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////
 //Basic constructor, basically initializes an empty board
@@ -37,6 +45,31 @@ void Board :: newGame()
     stepsLeft = 4;
     turnNumber = 1;
     isSetup = true;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Places pieces on the board according the string received, which is in the
+// format of a move taken during the initialization phase of the game
+//////////////////////////////////////////////////////////////////////////////
+void Board :: doPlacementString(const string& pStr)
+{
+    vector<string> parts = splitByWhitespace(pStr);    
+
+    for (unsigned int i = 0; i < parts.size(); i++)
+    {
+        string str = parts[i];
+
+        //read the piece type and color
+        unsigned char piece = pieceFromChar(str[0]);
+    
+        //read the position to place on
+        stringstream squareStringStream;
+        squareStringStream << str[1] << str[2];
+        unsigned int on = squareFromString(squareStringStream.str());
+
+        // Place the piece on the respective bitboard
+        pieces[colorOfPiece(piece)][typeOfPiece(piece)] |= Int64FromIndex(on); 
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////

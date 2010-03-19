@@ -19,6 +19,8 @@ class Board
 
     void newGame();
 
+    void doPlacementString(const string& pStr);
+
     //variables///////////////////////////////////////////////////////////////
 
     //bitboards to store positions of the pieces. first index is color, second 
