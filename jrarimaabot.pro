@@ -1,5 +1,9 @@
 SOURCES += main.cpp  \
-           int64.cpp
+           int64.cpp \
+           piece.cpp \
+           board.cpp \
+           square.cpp \
+           step.cpp
 
 CONFIG += debug_and_release
 
