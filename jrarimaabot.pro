@@ -1,4 +1,6 @@
-SOURCES += main.cpp
+SOURCES += main.cpp  \
+           int64.cpp
+
 CONFIG += debug_and_release
 
 CONFIG(debug, debug|release) {
