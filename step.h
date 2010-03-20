@@ -106,6 +106,21 @@ class StepCombo
         numSteps = 0;
         stepCost = stepsLeft;
     }
+
+    //////////////////////////////////////////////////////////////////////////
+    // Appends steps to this combo
+    //////////////////////////////////////////////////////////////////////////
+    void appendMove(unsigned char piece, unsigned char from, unsigned char to)
+    {
+        steps[numSteps].genMove(piece, from, to);
+        numSteps ++;
+    }
+
+    void appendCapture(unsigned char piece, unsigned char at)
+    {
+        steps[numSteps].genCapture(piece, at);
+        numSteps ++;
+    }
   
     Step steps[8]; //the set of steps in this combo, note that the array
                    //can be larger than the actual number of steps stored
