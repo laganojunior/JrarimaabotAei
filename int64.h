@@ -40,11 +40,16 @@ const Int64 COL_H = (((Int64) 1) << 7)  |
 const Int64 ROW_1 = (((Int64) 255) << 56);
 const Int64 ROW_8 = (((Int64) 255));
 
+const Int64 traps = (((Int64) 1) << 18) |
+                    (((Int64) 1) << 21) |
+                    (((Int64) 1) << 42) |    
+                    (((Int64) 1) << 45);
+
+
 //some functions implemented in int64.cpp
 string Int64ToString(Int64 i);
 string BitboardToString(Int64 i);
 Int64  randInt64();
-
 
 //////////////////////////////////////////////////////////////////////////////
 //Returns the 64 bit integer with all bits set to 0 except for the bit

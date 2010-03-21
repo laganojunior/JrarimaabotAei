@@ -124,6 +124,129 @@ void Board :: undoCombo(const StepCombo& combo)
 
     stepsLeft += combo.stepCost;
 }
+
+//////////////////////////////////////////////////////////////////////////////
+// Generates the list of all legal 1-step moves. The input pointer must
+// point to something already allocated as this will write all the moves
+// generated directly from the address given onward. Returns the number of
+// moves generated.
+//////////////////////////////////////////////////////////////////////////////
+int Board :: gen1Steps(StepCombo * combos)
+{
+    // Get all of the pieces on the board to check for obstacles and captures
+    Int64 allColorPieces[MAX_COLORS] = {0, 0};
+    for (int i = 0; i < MAX_TYPES; i++)
+    {
+        allColorPieces[GOLD] |= pieces[GOLD][i];
+        allColorPieces[SILVER] |= pieces[SILVER][i];
+    }
+
+    Int64 allPieces = allColorPieces[GOLD] | allColorPieces[SILVER];
+
+    // Bitboard to keep track of all the stronger pieces on the opposing
+    // side for freezing constraints. 
+    Int64 oppStrongerPieces = 0; 
+
+    int numGen = 0;
+
+    // Iterate through each type of piece starting from the elephant down,
+    // up to the rabbit which must be treated specially
+    for (unsigned char type = 0; type < MAX_TYPES - 1; type++)
+    {
+        unsigned char piece = genPiece(sideToMove, type);
+
+        // Get all the squares containing this piece which is not
+        // frozen
+        Int64 pieceBoard = pieces[sideToMove][type] &
+                           ~getNeighbors(oppStrongerPieces);
+
+        // Go through square of which this piece is on
+        int from;
+        while ((from = bitScanForward(pieceBoard)) != NO_BIT_FOUND)
+        {
+            Int64 pos =  Int64FromIndex(from);
+            pieceBoard ^= pos;
+  
+            // Make a move for every neighboring square that is free 
+            Int64 freeNeighbors =  getNeighbors(pos) & ~allPieces;
+
+            int to;
+            while ((to = bitScanForward(freeNeighbors)) != NO_BIT_FOUND)
+            {     
+                Int64 toPos = Int64FromIndex(to);
+                freeNeighbors ^= toPos;
+ 
+                combos[numGen].reset();
+                combos[numGen].appendMove(piece, from, to);
+                // Look for resulting captures if any when performing the
+                // move. 
+                unsigned char capPiece, capSquare;
+                if (checkMoveLeadsToCapture(from, to, piece,
+                                            allColorPieces[sideToMove],
+                                            capPiece, capSquare))
+                {
+                    combos[numGen].appendCapture(capPiece, capSquare);
+                }
+
+                numGen++;
+            }
+        }
+
+        // Changing piece type in next iteration, so the stronger opposing
+        // bitboard should be updated with the next type of piece that
+        // will now be stronger in the next iteration. Note that this is just
+        // the piece type that was considered during this iteration.
+        oppStrongerPieces |= pieces[oppColorOf(sideToMove)][type];
+    }
+
+    // Take care of the rabbit, rabbits cannot move backward.
+
+    // Get non-frozen rabbits
+    Int64 pieceBoard = pieces[sideToMove][RABBIT]
+                      & ~getNeighbors(oppStrongerPieces);
+    unsigned char piece = genPiece(sideToMove, RABBIT);
+
+    // Go through square of which this piece is on
+    int from;
+    while ((from = bitScanForward(pieceBoard)) != NO_BIT_FOUND)
+    {
+        Int64 pos =  Int64FromIndex(from);
+        pieceBoard ^= pos;
+
+        // Make a move for every neighboring square that is free. Note
+        // for rabbits, rabbits cannot move backward, so this is dependent
+        // on which side is moving.
+        Int64 freeNeighbors;
+       
+        if (sideToMove == GOLD)
+            freeNeighbors = getNeighborsUp(pos) & ~allPieces;
+        else
+            freeNeighbors = getNeighborsDown(pos) & ~allPieces;
+            
+        int to;
+        while ((to = bitScanForward(freeNeighbors)) != NO_BIT_FOUND)
+        {     
+            Int64 toPos = Int64FromIndex(to);
+            freeNeighbors ^= toPos;
+
+            combos[numGen].reset();
+            combos[numGen].appendMove(piece, from, to);
+            // Look for resulting captures if any when performing the
+            // move. 
+            unsigned char capPiece, capSquare;
+            if (checkMoveLeadsToCapture(from, to, piece,
+                                        allColorPieces[sideToMove],
+                                        capPiece, capSquare))
+            {
+                combos[numGen].appendCapture(capPiece, capSquare);
+            }
+            numGen++;
+        }
+    } 
+
+    return numGen;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 //Prints the board onto the stream designated by out
 //////////////////////////////////////////////////////////////////////////////
