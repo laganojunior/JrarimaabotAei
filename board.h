@@ -53,6 +53,7 @@ class Board
     }
 
     int gen1Steps(StepCombo * combos);
+    int genPushPull(StepCombo * combos);
 
     inline bool checkMoveLeadsToCapture(unsigned char from, unsigned char to,
                                         unsigned char piece,
