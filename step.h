@@ -114,6 +114,7 @@ class StepCombo
     {
         steps[numSteps].genMove(piece, from, to);
         numSteps ++;
+        stepCost ++;
     }
 
     void appendCapture(unsigned char piece, unsigned char at)
