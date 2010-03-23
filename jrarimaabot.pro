@@ -3,7 +3,13 @@ SOURCES += main.cpp  \
            piece.cpp \
            board.cpp \
            square.cpp \
-           step.cpp
+           step.cpp 
+HEADERS += board.h \
+           int64.h \
+           piece.h \
+           square.h \
+           step.h \
+           stringsplit.h \
 
 CONFIG += debug_and_release
 
