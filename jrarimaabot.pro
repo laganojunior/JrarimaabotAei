@@ -3,13 +3,17 @@ SOURCES += main.cpp  \
            piece.cpp \
            board.cpp \
            square.cpp \
-           step.cpp 
+           step.cpp \
+           controller.cpp
 HEADERS += board.h \
            int64.h \
+           controller.h \
            piece.h \
            square.h \
            step.h \
            stringsplit.h \
+           bot.h \
+           randombot.h 
 
 CONFIG += debug_and_release
 
