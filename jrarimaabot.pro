@@ -9,6 +9,7 @@ HEADERS += board.h \
            int64.h \
            controller.h \
            piece.h \
+           randombot.h \
            square.h \
            step.h \
            stringsplit.h \
