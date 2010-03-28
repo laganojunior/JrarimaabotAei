@@ -68,7 +68,6 @@ class Board
     Int64 pieces[MAX_COLORS][MAX_TYPES];
 
     unsigned char sideToMove; //current player to move
-    unsigned int turnNumber;
     unsigned int stepsLeft;   //number of steps left in this move 
                               //available
 

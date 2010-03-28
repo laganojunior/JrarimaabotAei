@@ -43,7 +43,6 @@ void Board :: newGame()
 
     sideToMove = GOLD;
     stepsLeft = 4;
-    turnNumber = 1;
     isSetup = true;
 }
 
@@ -422,8 +421,8 @@ int Board :: genPushPull(StepCombo * combos)
 //////////////////////////////////////////////////////////////////////////////
 ostream& operator<<(ostream& out, Board b)
 {
-    //print out the turn number and side to move
-    out << b.turnNumber << charFromColor(b.sideToMove) << endl;
+    //print out the side to move
+    out << charFromColor(b.sideToMove) << endl;
 
     char pieceArray[64]; //displayable array that the pieces will eventually
                          //be placed onto
