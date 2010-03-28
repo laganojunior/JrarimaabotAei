@@ -35,7 +35,7 @@ class Bot
     //               and spaces.
     // 
     // MUST return only if these tasks are completed.
-//    virtual void setPosition(unsigned char color, string position) = 0;
+    virtual void setPosition(unsigned char color, string position) = 0;
 
 
     // Stop all searches and play a move on the board.

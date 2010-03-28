@@ -29,6 +29,15 @@ class RandomBot: public Bot
     {
         board.newGame();
     }    
+
+    virtual void setPosition(unsigned char color, string position)
+    {
+        board.setBoardPosition(color, position);
+        
+        out << "Set-up New Position" << endl;
+    
+        out << board;
+    }
     
     virtual void doMoveString(string moveStr)
     {

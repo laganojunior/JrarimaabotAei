@@ -19,6 +19,7 @@ class Board
     //functions///////////////////////////////////////////////////////////////
 
     void newGame();
+    void setBoardPosition(unsigned char sideToMove, const string& pStr);
 
     void doPlacementString(const string& pStr);
     void doMoveString(const string& mStr);

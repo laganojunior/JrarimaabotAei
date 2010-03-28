@@ -67,18 +67,24 @@ void Controller :: mainLoop()
         {
             // Currently not Supported
 
-           /* char colorChar;
+            char colorChar;
             string posString;
             
             lineStream >> colorChar;
-            lineStream >> posString;
+            getline(lineStream, posString);
+            posString.erase(0, 1); // Remove leading space
+
+            unsigned char color = '?';
+            if (colorChar == 'g')
+                color = GOLD;
+            else if (colorChar == 's')
+                color = SILVER;
 
             log << "Called: bot->startNewGame()\n";
-            log << "\tcolor: " << color << endl;
+            log << "\tcolor: " << charFromColor(color) << endl;
             log << "\tposition: " << posString << endl; 
 
-            unsigned char color = charFromColor(colorChar);
-            bot -> setPosition(color, posString); */
+            bot -> setPosition(color, posString);
         } 
         else if (command == "setoption")
         {

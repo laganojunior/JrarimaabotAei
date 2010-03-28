@@ -47,6 +47,56 @@ void Board :: newGame()
 }
 
 //////////////////////////////////////////////////////////////////////////////
+// Sets the board position from a string in the shortened board position
+// AEI format
+//////////////////////////////////////////////////////////////////////////////
+void Board :: setBoardPosition(unsigned char sideToMove, const string& pStr)
+{
+    
+    // Clear out all the bitboards
+    for (int color = 0; color < MAX_COLORS; color++)
+    {
+        for (int piece = 0; piece < MAX_TYPES; piece++)
+        {
+            pieces[color][piece] = 0;
+        }
+    }
+
+    // Skip the first character, which is a [
+    // The next 64 characters define the board position
+    for (int i = 1; i <= 64; i++)
+    {
+        int row = (i - 1) / 8;
+        int col = (i - 1) % 8;
+        char pieceChar = pStr[i];
+
+        if (pieceChar == ' ')
+            continue;
+            
+        unsigned char piece = pieceFromChar(pieceChar);
+        unsigned char color = colorOfPiece(piece);
+        unsigned char type  = typeOfPiece(piece);
+
+        pieces[color][type] |= Int64FromIndex(row * 8 + col);
+    }
+
+    this->sideToMove = sideToMove;
+
+    // Now check if there is no pieces for silver. This is a clear indication
+    // of the game still being in the set-up phase.
+    Int64 allSilver = 0;
+    for (int i = 0; i < MAX_TYPES; i++)
+    {
+        allSilver |= pieces[SILVER][i];
+    }
+
+    if (allSilver)
+        isSetup = false;
+    else
+        isSetup = true; 
+}
+
+//////////////////////////////////////////////////////////////////////////////
 // Places pieces on the board according the string received, which is in the
 // format of a move taken during the initialization phase of the game
 //////////////////////////////////////////////////////////////////////////////
