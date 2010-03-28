@@ -124,6 +124,10 @@ void Controller :: mainLoop()
 
             quit = true;
         }
+        else
+        {
+            log << "Unrecognized command\n";
+        }
     }
 }
 
