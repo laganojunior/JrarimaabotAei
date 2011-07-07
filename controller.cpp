@@ -65,8 +65,6 @@ void Controller :: mainLoop()
         }
         else if (command == "setposition")
         {
-            // Currently not Supported
-
             char colorChar;
             string posString;
             
