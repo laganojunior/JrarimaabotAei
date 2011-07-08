@@ -8,22 +8,26 @@ Requirements
 --------------------------
 
 To make the bot ::
+
     gcc
     Python 2
 
 To use the GUI ::
+
     WxWidgets for Python
     bzr (bazaar)
 
 Building
 --------------------------
-Run::
+Run ::
+
     ./genmake
     make
 
 Running bot tournaments
 ~~~~~~~~~~~~~~~~~~~~~~~
 Run ::
+
     make roundrobin
 
 See cfg/roundrobin.cfg for configuration
@@ -31,7 +35,9 @@ See cfg/roundrobin.cfg for configuration
 Playing against the bot
 ~~~~~~~~~~~~~~~~~~~~~~~
 To play gold ::
+
     make play_g
 
 To play silver ::
+
     make play_s
