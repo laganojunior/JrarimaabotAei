@@ -1,9 +1,13 @@
 *.swp
 
+aei-1.1.zip
+aei-1.1/
+
+arimaa-client/
+
 BotLog.txt
 Log.txt
 
 Makefile
 
 jrarimaabot
-jrarimaabot_debug

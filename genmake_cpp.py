@@ -89,6 +89,7 @@ print >> makefile, "\tg++ %s" % debugflags ,
 for o in sources:
     print >> makefile, "obj/%s_debug.o" % o,
 print >> makefile, "-o %s_debug" % targetname
+print >> makefile, "\tmv %s_debug %s" % (targetname, targetname)
 print >> makefile
 
 #Generate clean target
