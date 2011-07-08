@@ -4,10 +4,9 @@ BotLog.txt
 Log.txt
 
 Makefile
-Makefile.Debug
-Makefile.Release
 
 release/
 debug/
 
 jrarimaabot
+jrarimaabot_debug
