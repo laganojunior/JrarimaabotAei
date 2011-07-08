@@ -41,3 +41,5 @@ To play gold ::
 To play silver ::
 
     make play_s
+
+See cfg/roundrobin_gui_{g,s}.cfg for configuration
