@@ -7,15 +7,13 @@ do very much now, but I'm laying the framework for later.
 Requirements
 --------------------------
 
-To make the bot
-~~~~~~~~~~~~~~~
-gcc
-Python 2
+To make the bot ::
+    gcc
+    Python 2
 
-To use the GUI
-~~~~~~~~~~~~~~~
-WxWidgets for Python
-bzr (bazaar)
+To use the GUI ::
+    WxWidgets for Python
+    bzr (bazaar)
 
 Building
 --------------------------
