@@ -5,8 +5,5 @@ Log.txt
 
 Makefile
 
-release/
-debug/
-
 jrarimaabot
 jrarimaabot_debug
