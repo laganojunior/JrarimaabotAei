@@ -1,3 +1,0 @@
-#/usr/bin/env bash
-cp makefilestub.txt Makefile
-python genmake_cpp.py

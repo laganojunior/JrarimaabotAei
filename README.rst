@@ -21,7 +21,6 @@ Building
 --------------------------
 Run ::
 
-    ./genmake
     make
 
 Running bot tournaments
